@@ -14,7 +14,7 @@ public class SortByTitle implements SortStrategy {
 
         sorted.sort(
                 Comparator.comparing(
-                        Track:getTitle,
+                        Track::getTitle,
         String.CASE_INSENSITIVE_ORDER
                 )
         );
