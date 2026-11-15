@@ -1,9 +1,6 @@
 package decorator;
-
 import factory.Track;
-
 public class EchoDecorator extends TrackDecorator {
-
     public EchoDecorator(Track wrappedTrack) {
         super(wrappedTrack);
     }
@@ -11,9 +8,6 @@ public class EchoDecorator extends TrackDecorator {
     @Override
     public void play() {
         super.play();
-
         System.out.println(
                 "Echo effect enabled (simulation)"
-        );
-    }
-}
+        );} }
