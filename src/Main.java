@@ -1,5 +1,7 @@
 import factory.*;
 import builder.*;
+import adapter.*;
+import decorator.*;
 public class Main {
     public static void main(String[] args){
         System.out.println("Music streaming service");
@@ -27,6 +29,33 @@ public class Main {
         song1.play();
         song2.play();
 
+        //adapter
+        LegacyAudioPlayer legacyPlayer = new LegacyAudioPlayer(
+                "Night Sky",
+                "Unknown Artist",
+                200,
+                "Demo lyrics from external player"
+        );
+        Track adaptedTrack = new LegacyTrackAdapter(legacyPlayer);
+        System.out.println("Title: " + adaptedTrack.getTitle());
+        System.out.println("Artist: " + adaptedTrack.getArtist());
+        System.out.println("Duration: " + adaptedTrack.getDuration());
+        System.out.println("Lyrics: " + adaptedTrack.getLyrics());
+        adaptedTrack.play();
+
+        //decorator
+        Track echoTrack = new EchoDecorator(song1);
+        Track bassTrack = new BassBoostDecorator(song1);
+        Track enhancedTrack =
+                new BassBoostDecorator(
+                        new EchoDecorator(song1)
+                );
+        System.out.println("\nPlaying with Echo: ");
+        echoTrack.play();
+        System.out.println("\nPlaying with Bass Boost: ");
+        bassTrack.play();
+        System.out.println("\nPlaying with Echo and Bass Boost: ");
+        enhancedTrack.play();
 
         //builder
         Playlist playlist= new PlaylistBuilder()
