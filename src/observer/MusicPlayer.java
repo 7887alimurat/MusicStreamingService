@@ -1,8 +1,8 @@
 package observer;
 
 import factory.Track;
-java.util.ArrayList;
-java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MusicPlayer implements MusicSubject {
 

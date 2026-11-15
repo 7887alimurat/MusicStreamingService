@@ -12,13 +12,11 @@ public class SortByArtist implements SortStrategy {
 
         List<Track> sortedTracks = new ArrayList<>(tracks);
 
-        sorted.sort(
-                Comparator.comparing(
-                        Track::getArtist,
-                String.CASE_INSENSITIVE_ORDER
-                )
+        sortedTracks.sort(Comparator.comparing(
+                Track::getArtist,
+                String.CASE_INSENSITIVE_ORDER)
         );
 
-        return sorted;
+        return sortedTracks;
     }
 }

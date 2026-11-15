@@ -11,13 +11,10 @@ public class SortByDuration implements SortStrategy {
 
         List<Track> sortedTracks = new ArrayList<>(tracks);
 
-        sorted.sort(
-                Comparator.comparing(
-                        Track::getDuration,
-                        String.CASE_INSENSITIVE_ORDER
-                )
+        sortedTracks.sort(Comparator.comparingInt
+                (Track::getDuration)
         );
 
-        return sorted;
+        return sortedTracks;
     }
 }

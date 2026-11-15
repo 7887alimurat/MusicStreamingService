@@ -2,15 +2,18 @@ import factory.*;
 import builder.*;
 import adapter.*;
 import decorator.*;
+import observer.*;
+import strategy.*;
+import java.util.List;
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.println("Music streaming service");
         //factory
         TrackFactory popFactory = new PopTrackFactory();
         TrackFactory rockFactory = new RockTrackFactory();
 
         Track song1 = popFactory.createTrack(
-                "Mockinbird","Eminem", 240,"Daddy's gonna buy you a mockingbird\n" +
+                "Mockinbird", "Eminem", 240, "Daddy's gonna buy you a mockingbird\n" +
                         "I'ma give you the world\n" +
                         "I'ma buy a diamond ring for you\n" +
                         "I'ma sing for you\n" +
@@ -21,7 +24,7 @@ public class Main {
                         "And make him eat every carat"
         );
         Track song2 = rockFactory.createTrack(
-                "Sonne","Rammstein",180,"Fünf, hier kommt die Sonne\n" +
+                "Sonne", "Rammstein", 180, "Fünf, hier kommt die Sonne\n" +
                         "Sechs, hier kommt die Sonne\n" +
                         "Sieben, sie ist der hellste Stern von allen\n" +
                         "Acht, neun, hier kommt die Sonne"
@@ -58,12 +61,41 @@ public class Main {
         enhancedTrack.play();
 
         //builder
-        Playlist playlist= new PlaylistBuilder()
+        Playlist playlist = new PlaylistBuilder()
                 .setName("My favorite songs")
                 .addSong(song1)
                 .addSong(song2)
                 .build();
         System.out.println();
         playlist.showPlayList();
+
+        //strategy
+        SortContext sortContext = new SortContext();
+
+        System.out.println("\nSorted by title:");
+        sortContext.setStrategy(new SortByTitle());
+        printTracks(sortContext.sortSongs(playlist.getSongs()));
+
+        System.out.println("\nSorted by artist:");
+        sortContext.setStrategy(new SortByArtist());
+        printTracks(sortContext.sortSongs(playlist.getSongs()));
+
+        System.out.println("\nSorted by duration:");
+        sortContext.setStrategy(new SortByDuration());
+        printTracks(sortContext.sortSongs(playlist.getSongs()));
+
+        //observer
+        MusicPlayer player = new MusicPlayer();
+        player.addObserver(new NowPlayingDisplay());
+        player.addObserver(new LyricsDisplay());
+        player.play(song1);
+        player.play(song2);
     }
-}
+
+        private static void printTracks(List<Track> tracks) {
+            for (Track track : tracks) {
+                System.out.println("- " + track.getTitle() + " by " + track.getArtist()
+                        + " (" + track.getDuration() + " s)");
+            }
+        }
+    }

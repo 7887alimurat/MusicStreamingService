@@ -9,15 +9,14 @@ public class LyricsDisplay implements MusicObserver {
 
         System.out.println("\n--- LYRICS ---");
 
-        if (track.getLyrics() != null) ||
-        track.getLyrics().isEmpty()) {
+        if (track.getLyrics() == null ||
+                track.getLyrics().isEmpty()) {
 
-
-    System.out.println("Lyrics not available.");
+            System.out.println("Lyrics not available.");
 
         } else {
 
-    System.out.println(track.getLyrics());
+            System.out.println(track.getLyrics());
         }
 
         System.out.println("----------");

@@ -12,13 +12,12 @@ public class SortByTitle implements SortStrategy {
 
         List<Track> sortedTracks = new ArrayList<>();
 
-        sorted.sort(
+        sortedTracks.sort(
                 Comparator.comparing(
                         Track::getTitle,
-        String.CASE_INSENSITIVE_ORDER
-                )
+        String.CASE_INSENSITIVE_ORDER)
         );
 
-        return sorted;
+        return sortedTracks;
     }
 }
